@@ -2,24 +2,20 @@
 
 namespace Src\DesignPattern;
 
-use Src\DesignPattern\Taxes\Tax;
+use Src\DesignPattern\Discounts\DiscountOverFiveHundred;
+use Src\DesignPattern\Discounts\FiveItemDiscount;
+use Src\DesignPattern\Discounts\NoDiscount;
 
 class DiscountCalculator
 {
     public function calculateDiscount(Budget $budget): float
     {
-        if ($budget->quantityOfItems > 5) {
-            return $budget->value * 0.1;
-        }
+        $discountChain = new FiveItemDiscount(
+            new DiscountOverFiveHundred(
+                new NoDiscount()
+            )
+        );
 
-        if ($budget->value > 500) {
-            return $budget->value * 0.05;
-        }
-
-        if ($budget->value > 1000 && $budget->quantityOfItems > 8) {
-            return $budget->value * 0.15;
-        }
-
-        return 0;
+        return $discountChain->calculateDiscount($budget);
     }
 }
