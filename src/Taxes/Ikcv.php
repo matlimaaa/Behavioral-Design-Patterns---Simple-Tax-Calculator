@@ -4,15 +4,20 @@ namespace Src\DesignPattern\Taxes;
 
 use Src\DesignPattern\Budget;
 
-class Ikcv implements Tax
+class Ikcv extends TaxWithTwoRates
 {
-    public function calculateTax(Budget $budget): float
+    protected function mustApplyMaximumTax(Budget $budget): bool
     {
-        if ($budget->value > 300 && $budget->quantityOfItems > 3) {
-            return $budget->value * 0.04;
-        }
+        return $budget->value > 300 && $budget->quantityOfItems > 3;
+    }
 
+    protected function applyMaximumTax(Budget $budget): float
+    {
+        return $budget->value * 0.04;
+    }
+
+    protected function applyMinimumTax(Budget $budget): float
+    {
         return $budget->value * 0.025;
-
     }
 }
