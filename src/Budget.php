@@ -3,30 +3,37 @@
 namespace Src\DesignPattern;
 
 use DomainException;
+use Src\DesignPattern\BudgetStates\BudgetStates;
+use Src\DesignPattern\BudgetStates\InProgress;
 
 class Budget
 {
     public float $value;
     public int $quantityOfItems;
-    public string $currentState;
+    public BudgetStates $currentState;
+
+    public function __construct()
+    {
+        $this->currentState = new InProgress();
+    }
 
     public function applyExtraDiscount()
     {
-        $this->value -= $this->calculateExtraDiscount();
+        $this->value -= $this->currentState->applyExtraDiscount($this);
     }
 
-    public function calculateExtraDiscount(): float
+    public function toApprove()
     {
-        if ($this->currentState === 'IN_PROGRESS') {
-            return $this->value * 0.05;
-        }
+        $this->currentState->toApprove($this);
+    }
 
-        if ($this->currentState === 'APPROVED') {
-            return $this->value * 0.02;
-        }
+    public function fail(Budget $budget)
+    {
+        $this->currentState->fail($this);
+    }
 
-        throw new DomainException(
-            'Failed and completed budget cannot receive discounts'
-        );
+    public function finish(Budget $budget)
+    {
+        $this->currentState->finish($this);
     }
 }
