@@ -2,9 +2,7 @@
 
 namespace Src\DesignPattern;
 
-use DateTimeImmutable;
-
-class GenerateOrder implements Command
+class GenerateOrder
 {
     private float $budgetAmount;
     private int $quantityOfItems;
@@ -20,19 +18,19 @@ class GenerateOrder implements Command
         $this->clientName = $clientName;
     }
 
-    public function execute()
+    public function getBudgetAmount()
     {
-        $budget = new Budget();
-        $budget->quantityOfItems = $this->quantityOfItems;
-        $budget->value = $this->budgetAmount;
-
-        $order = new Order();
-        $order->completionDate = new DateTimeImmutable();
-        $order->clientName = $this->clientName;
-        $order->budget = $budget;
-
-        
-        echo "Create new order in the Database" . PHP_EOL;
-        echo "Send e-mail for client" . PHP_EOL;
+        return $this->budgetAmount;
     }
+
+    public function getQuantityOfItems()
+    {
+        return $this->quantityOfItems;
+    }
+
+    public function getClientName()
+    {
+        return $this->clientName;
+    }
+
 }

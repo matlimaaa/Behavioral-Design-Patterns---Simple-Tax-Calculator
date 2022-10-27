@@ -5,6 +5,7 @@ require_once 'vendor/autoload.php';
 use Src\DesignPattern\{
     Budget,
     GenerateOrder,
+    GenerateOrderHandler,
     Order
 };
 
@@ -18,4 +19,6 @@ $generateOrder = new GenerateOrder(
     $clientName
 );
 
-$generateOrder->execute();
+$generateOrderHandler = new GenerateOrderHandler();
+
+$generateOrderHandler->execute($generateOrder);
