@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\DesignPattern\CreateOrderInDatabase;
+namespace Src\DesignPattern\ActionsAfterOrder;
 
 use Src\DesignPattern\Order;
 
-class SendOrderByEmail
+class SendOrderByEmail implements ActionsAfterOrder
 {
     public function performAction(Order $order): void
     {

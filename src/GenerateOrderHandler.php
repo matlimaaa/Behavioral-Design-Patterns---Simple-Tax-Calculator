@@ -3,12 +3,21 @@
 namespace Src\DesignPattern;
 
 use DateTimeImmutable;
-use Src\DesignPattern\CreateOrderInDatabase\CreateOrderInDatabase;
-use Src\DesignPattern\CreateOrderInDatabase\SendOrderByEmail;
+use Src\DesignPattern\ActionsAfterOrder\ActionsAfterOrder;
 
 class GenerateOrderHandler
 {
+    /**
+     * @var ActionsAfterOrder[]
+     */
+    private array $ActionsAfterOrder = [];
+
     public function __construct(/** OrderRepository, MailService */) {
+    }
+
+    public function addActionAfterGeneratingOrder(ActionsAfterOrder $action)
+    {
+        $this->ActionsAfterOrder[] = $action;
     }
 
     public function execute(GenerateOrder $generateOrder)
@@ -22,10 +31,8 @@ class GenerateOrderHandler
         $order->clientName = $generateOrder->getClientName();
         $order->budget = $budget;
 
-        $orderRepository = new CreateOrderInDatabase();
-        $sendEmail = new SendOrderByEmail();
-
-        $orderRepository->performAction($order);
-        $sendEmail->performAction($order);
+        foreach ($this->ActionsAfterOrder as $action) {
+            $action->performAction($order);
+        }
     }
 }
