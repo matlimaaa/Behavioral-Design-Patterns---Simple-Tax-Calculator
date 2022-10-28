@@ -3,6 +3,8 @@
 namespace Src\DesignPattern;
 
 use DateTimeImmutable;
+use Src\DesignPattern\CreateOrderInDatabase\CreateOrderInDatabase;
+use Src\DesignPattern\CreateOrderInDatabase\SendOrderByEmail;
 
 class GenerateOrderHandler
 {
@@ -20,8 +22,10 @@ class GenerateOrderHandler
         $order->clientName = $generateOrder->getClientName();
         $order->budget = $budget;
 
-        
-        echo "Create new order in the Database" . PHP_EOL;
-        echo "Send e-mail for client" . PHP_EOL;
+        $orderRepository = new CreateOrderInDatabase();
+        $sendEmail = new SendOrderByEmail();
+
+        $orderRepository->performAction($order);
+        $sendEmail->performAction($order);
     }
 }
