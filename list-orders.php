@@ -1,6 +1,7 @@
 <?php
 
 use Src\DesignPattern\Budget;
+use Src\DesignPattern\BudgetList;
 
 require_once 'vendor/autoload.php';
 
@@ -21,14 +22,24 @@ $budget3->quantityOfItems = 3;
 $budget3->toApprove();
 $budget3->value = mt_rand(100, 1500);
 
-$listBudgets = [
-    $budget1,
-    $budget2,
-    $budget3
-];
+$budget4 = new Budget();
+$budget4->quantityOfItems = 1;
+$budget4->value = 500;
 
+$budgetList = new BudgetList();
+$budgetList->addBudget($budget1);
+$budgetList->addBudget($budget2);
+$budgetList->addBudget($budget3);
+$budgetList->addBudget($budget4);
 
-foreach ($listBudgets as $budget) {
+// foreach ($budgetList as $budget) {
+//     echo "Value: " . $budget->value . PHP_EOL;
+//     echo "State: " . get_class($budget->currentState) . PHP_EOL;
+//     echo "Quantity of items: " . $budget->quantityOfItems . PHP_EOL;
+//     echo PHP_EOL;
+// }
+
+foreach ($budgetList->openBudgets() as $budget) {
     echo "Value: " . $budget->value . PHP_EOL;
     echo "State: " . get_class($budget->currentState) . PHP_EOL;
     echo "Quantity of items: " . $budget->quantityOfItems . PHP_EOL;
