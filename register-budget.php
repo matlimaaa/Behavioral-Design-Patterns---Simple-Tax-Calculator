@@ -2,7 +2,7 @@
 
 use Src\DesignPattern\Budget;
 use Src\DesignPattern\BudgetRecord;
-use Src\DesignPattern\CurlHttpAdapter;
+use Src\DesignPattern\Http\CurlHttpAdapter;
 
 require_once 'vendor/autoload.php';
 
