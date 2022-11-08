@@ -4,6 +4,7 @@ namespace Src\DesignPattern;
 
 use DomainException;
 use Src\DesignPattern\BudgetStates\Finished;
+use Src\DesignPattern\Http\HttpAdapter;
 
 class BudgetRecord
 {

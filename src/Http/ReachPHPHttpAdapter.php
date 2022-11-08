@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\DesignPattern;
+namespace Src\DesignPattern\Http;
 
 class ReachPHPHttpAdapter implements HttpAdapter
 {
