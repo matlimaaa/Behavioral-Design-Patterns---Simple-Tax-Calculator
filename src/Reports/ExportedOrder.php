@@ -14,7 +14,7 @@ class ExportedOrder implements ExportedContent
         $this->order = $order;
     }
 
-    public function context(): array
+    public function content(): array
     {
         return [
             'client_name' => $this->order->clientName,

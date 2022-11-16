@@ -4,5 +4,5 @@ namespace Src\DesignPattern\Reports;
 
 interface ExportedContent
 {
-    public function context(): array;
+    public function content(): array;
 }

@@ -14,7 +14,7 @@ class ExportedBudget implements ExportedContent
         $this->budget = $budget;
     }
 
-    public function context(): array
+    public function content(): array
     {
         return [
             'value' => $this->budget->value,
